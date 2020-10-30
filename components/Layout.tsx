@@ -1,41 +1,34 @@
 import React, { ReactNode } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import Sidebar from "./Sidebar";
 
 type Props = {
   children?: ReactNode
   title?: string
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
-  <div>
+const Layout = ({ children}: Props) => (
+  <>
     <Head>
-      <title>{title}</title>
       <meta charSet="utf-8" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" integrity="sha512-oHDEc8Xed4hiW6CxD7qjbnI+B07vDdX7hEPTvn9pSZO1bcRqHp8mj9pyr+8RVC2GmtEfI2Bi9Ke9Ass0as+zpg==" crossorigin="anonymous" />
+      <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <header>
-      <nav>
-        <Link href="/">
-          <a>Home</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/about">
-          <a>About</a>
-        </Link>{' '}
-        |{' '}
-        <Link href="/users">
-          <a>Users List</a>
-        </Link>{' '}
-        | <a href="/api/users">Users API</a>
-      </nav>
-    </header>
-    {children}
-    <footer>
-      <hr />
-      <span>I'm here to stay (Footer)</span>
-    </footer>
-  </div>
+    
+    <div className="bg-gray-200 min-h-screen">
+      <div className="sm:flex min-h-screen">
+        <Sidebar />
+        
+        <main className="sm:w-1/3 xl:w-4/5 min-h-screen p-5">
+          {children}
+        </main>
+          
+        
+      </div>
+    </div>    
+  </>
 )
 
 export default Layout
