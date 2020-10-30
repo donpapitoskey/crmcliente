@@ -1,14 +1,19 @@
 import React, { ReactNode } from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
 import Sidebar from "./Sidebar";
+import {useRouter} from "next/router";
 
 type Props = {
   children?: ReactNode
   title?: string
 }
 
-const Layout = ({ children}: Props) => (
+const Layout = ({ children}: Props) => {
+  
+  const router = useRouter();
+
+  return (
+
   <>
     <Head>
       <meta charSet="utf-8" />
@@ -16,19 +21,26 @@ const Layout = ({ children}: Props) => (
       <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    
-    <div className="bg-gray-200 min-h-screen">
-      <div className="sm:flex min-h-screen">
-        <Sidebar />
-        
-        <main className="sm:w-1/3 xl:w-4/5 min-h-screen p-5">
+
+    {router.pathname === '/login' || router.pathname === '/newaccount' ? (
+      <div className="bg-gray-800 min-h-screen flex flex-col justify-center">
+        <div>
           {children}
-        </main>
-          
-        
+        </div>
       </div>
-    </div>    
+    ) : (
+      <div className="bg-gray-200 min-h-screen">
+        <div className="sm:flex min-h-screen">
+          <Sidebar />
+          <main className="sm:w-1/3 xl:w-4/5 min-h-screen p-5">
+            {children}
+          </main>       
+        </div>
+      </div>    
+    )}
+    
+    
   </>
-)
+)};
 
 export default Layout
