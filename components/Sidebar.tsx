@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from 'next/link';
 
 const Sidebar = () => {
   return (
@@ -6,6 +7,29 @@ const Sidebar = () => {
       <div >
         <p className="text-white text-2xl font-black" >CMRCLIENTES</p> 
       </div>
+      <nav className="mt-5 list-none">
+        <li>
+          <Link href="/">
+            <a className="text-white mb-3 block">
+              Clientes
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/pedidos">
+            <a className="text-white mb-3 block">
+              Pedidos
+            </a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/productos">
+            <a className="text-white mb-3 block">
+              Productos
+            </a>
+          </Link>
+        </li>
+      </nav>
     </aside>
     
   ) 
