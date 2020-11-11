@@ -10,6 +10,7 @@
   "dependencies": {
     "@apollo/client": "^3.2.5",
     "apollo-env": "^0.6.5",
+    "apollo-link-context": "^1.0.20",
     "cross-fetch": "^3.0.6",
     "formik": "^2.2.1",
     "graphql": "^15.4.0",
