@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Header from './Header';
 import Sidebar from './Sidebar';
 
 type Props = {
@@ -32,6 +33,7 @@ const Layout = ({ children }: Props) => {
           <div className="sm:flex min-h-screen">
             <Sidebar />
             <main className="sm:w-1/3 xl:w-4/5 min-h-screen p-5">
+              <Header />
               {children}
             </main>
           </div>
