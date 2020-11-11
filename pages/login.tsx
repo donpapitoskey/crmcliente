@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 
 const AUTENTICAR_USUARIO = gql`
@@ -14,6 +15,8 @@ mutation autenticarUsuario($input: AutenticarInput){
 `;
 
 const Login = () => {
+  const router = useRouter();
+  const [message, setMessage] = useState<string | null>(null);
   const [autenticarUsuario] = useMutation(AUTENTICAR_USUARIO);
   const formik = useFormik({
     initialValues: {
@@ -37,16 +40,36 @@ const Login = () => {
             },
           },
         });
-        console.log(data);
+        setMessage('Autenticando...');
+
+        const { token } = data.autenticarUsuario;
+        localStorage.setItem('token', token);
+
+        setTimeout(() => {
+          setMessage(null);
+          router.push('/');
+        }, 3000);
       } catch (error) {
-        console.log(error);
+        setMessage(error.message);
+
+        setTimeout(() => {
+          setMessage(null);
+        }, 3000);
       }
     },
   });
+
+  const showMessage = () => (
+    <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
+      <p>{message}</p>
+    </div>
+  );
+
   return (
     <div>
       <Layout>
         <h1 className="text-center text-2xl text-white font-white">Login</h1>
+        {message && showMessage()}
         <div className="flex justify-center mt-5">
           <div className="w-full max-w-sm">
             <form
