@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useMutatuion, gql, useMutation } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { gql, useMutation } from '@apollo/client';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Layout from '../components/Layout';
-import { TIMEOUT } from 'dns';
 
 const NEW_ACCOUNT = gql`
 mutation nuevoUsuario($input: UsuarioInput) {
@@ -17,9 +17,11 @@ mutation nuevoUsuario($input: UsuarioInput) {
 `;
 
 const NewAccount = () => {
-  const [message, setMessage] = useState(null);
+  const [message, setMessage] = useState<null | string>(null);
 
   const [nuevoUsuario] = useMutation(NEW_ACCOUNT);
+
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -51,7 +53,13 @@ const NewAccount = () => {
             },
           },
         });
-        console.log(data);
+
+        setMessage(`El usuario se creó correctamente: ${data.nuevoUsuario.nombre}`);
+
+        setTimeout(() => {
+          setMessage(null);
+          router.push('/login');
+        }, 3000);
       } catch (error) {
         setMessage(error.message);
 
