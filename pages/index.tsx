@@ -47,7 +47,7 @@ const IndexPage = () => {
           </thead>
           <tbody className="bg-white">
             {data.obtenerClientesVendedor.map((cliente:any) => (
-              <tr key={cliente.id}>
+              <tr key={cliente._id}>
                 <td className="border px-4 py-2">
                   {cliente.nombre}
                   {cliente.apellido}
