@@ -1,8 +1,10 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import Client from '../components/Client';
 
 const OBTENER_CLIENTES_USUARIO = gql`
   query obtenerClientesVendedor {
@@ -43,27 +45,20 @@ const IndexPage = () => {
               <th className="w-1/5 py-2">Nombre</th>
               <th className="w-1/5 py-2">Empresa</th>
               <th className="w-1/5 py-2">Email</th>
+              <th className="w-1/5 py-2">Eliminar</th>
             </tr>
           </thead>
           <tbody className="bg-white">
             {data.obtenerClientesVendedor.map((cliente:any) => (
-              <tr key={cliente._id}>
-                <td className="border px-4 py-2">
-                  {cliente.nombre}
-                  {cliente.apellido}
-                </td>
-                <td className="border px-4 py-2">
-                  {cliente.empresa}
-                </td>
-                <td className="border px-4 py-2">
-                  {cliente.email}
-                </td>
-              </tr>
+              <Client
+                key={cliente._id}
+                cliente={cliente}
+              />
             ))}
           </tbody>
         </table>
       </Layout>
-  </div>
+    </div>
   );
 };
 

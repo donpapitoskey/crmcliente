@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../components/Layout';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
+import Layout from '../components/Layout';
 
 const NUEVO_CLIENTE = gql`
   mutation nuevoCliente($input: ClienteInput) {
