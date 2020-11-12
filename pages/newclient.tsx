@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { useFormik } from 'formik';
@@ -33,6 +33,9 @@ const OBTENER_CLIENTES_USUARIO = gql`
 
 const NewClient = () => {
   const router = useRouter();
+
+  const [message, setMessage] = useState<string | null>(null);
+
   const [nuevoCliente] = useMutation(NUEVO_CLIENTE, {
     update(cache, { data: { nuevoCliente } }) {
       // obtener objeto de cache que deseamos
@@ -86,15 +89,25 @@ const NewClient = () => {
         });
         router.push('/');
       } catch (error) {
-        console.log(error);
+        setMessage(error.message);
+
+        setTimeout(() => {
+          setMessage(null);
+        }, 2000);
       }
     },
   });
 
+  const showMessage = () => (
+    <div className="bg-white py-2 px-3 w-full my-3 max-w-sm text-center mx-auto">
+      <p>{message}</p>
+    </div>
+  );
+
   return (
     <Layout>
       <h1 className="text-2xl text-gray-800 font-light">NuevoCliente</h1>
-
+      {message && showMessage()}
       <div className="flex justify-center mt-5">
         <div className="w-full max-w-lg">
           <form
