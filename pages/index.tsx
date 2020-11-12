@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 
 const OBTENER_CLIENTES_USUARIO = gql`
@@ -15,9 +16,16 @@ const OBTENER_CLIENTES_USUARIO = gql`
 `;
 
 const IndexPage = () => {
+  const router = useRouter();
+
   const { data, loading, error} = useQuery(OBTENER_CLIENTES_USUARIO);
 
   if (loading) return 'Cargando ...';
+
+  if (!data.obtenerClientesVendedor) {
+    return router.push('/login');
+  }
+
   return (
     <div>
       <Layout>
@@ -31,7 +39,7 @@ const IndexPage = () => {
             </tr>
           </thead>
           <tbody className="bg-white">
-            {data.obtenerClientesVendedor.map((cliente:any) => {
+            {data.obtenerClientesVendedor.map((cliente:any) => (
               <tr key={cliente.id}>
                 <td className="border px-4 py-2">
                   {cliente.nombre}
@@ -43,8 +51,8 @@ const IndexPage = () => {
                 <td className="border px-4 py-2">
                   {cliente.email}
                 </td>
-              </tr>;
-            })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </Layout>
