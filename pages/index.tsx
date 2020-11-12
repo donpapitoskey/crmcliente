@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 const OBTENER_CLIENTES_USUARIO = gql`
   query obtenerClientesVendedor {
     obtenerClientesVendedor{
-      id
+      _id
       nombre
       apellido
       empresa
@@ -20,6 +20,7 @@ const IndexPage = () => {
   const router = useRouter();
 
   const { data, loading, error} = useQuery(OBTENER_CLIENTES_USUARIO);
+  console.log('data Frot table \n', data);
 
   if (loading) return 'Cargando ...';
 
