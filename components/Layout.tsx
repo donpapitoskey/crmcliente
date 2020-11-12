@@ -32,7 +32,7 @@ const Layout = ({ children }: Props) => {
         <div className="bg-gray-200 min-h-screen">
           <div className="sm:flex min-h-screen">
             <Sidebar />
-            <main className="sm:w-1/3 xl:w-4/5 min-h-screen p-5">
+            <main className="sm:w-2/3 xl:w-4/5 min-h-screen p-5">
               <Header />
               {children}
             </main>
