@@ -22,7 +22,6 @@ const IndexPage = () => {
   const router = useRouter();
 
   const { data, loading, error} = useQuery(OBTENER_CLIENTES_USUARIO);
-  console.log('data Frot table \n', data);
 
   if (loading) return 'Cargando ...';
 
