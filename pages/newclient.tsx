@@ -76,7 +76,7 @@ const NewClient = () => {
         telefono,
       } = values;
       try {
-        const { data } = await nuevoCliente({
+        await nuevoCliente({
           variables: {
             input: {
               nombre,
